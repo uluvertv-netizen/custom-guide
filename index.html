@@ -107,6 +107,30 @@ details p{margin:0 0 16px;color:var(--muted)}
 .cta .tell{margin-top:18px;font-size:14px;color:#c4cfe8}
 footer{padding:36px 0 52px;text-align:center;color:var(--muted);font-size:13px}
 
+/* inquiry form */
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 6px 22px rgba(15,29,61,.06)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+.f>label,.f>.lab{font-weight:800;font-size:15px}
+.f .req{color:var(--red)}
+.f input[type=text],.f input[type=tel],.f input[type=email],.f input[type=date],.f input[type=number],.f select,.f textarea{width:100%;padding:13px 14px;border:1px solid #c9d2e6;border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+.f textarea{min-height:120px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.opts{display:flex;flex-wrap:wrap;gap:10px 18px}
+.opts label{display:flex;align-items:center;gap:7px;font-weight:600;cursor:pointer}
+.opts input{width:18px;height:18px;accent-color:var(--blue)}
+.hint{font-size:13px;color:var(--muted)}
+.consent{background:var(--bg);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--muted)}
+.consent label{display:flex;gap:8px;align-items:flex-start;font-weight:700;color:var(--ink);margin-top:8px;cursor:pointer}
+.consent input{width:18px;height:18px;margin-top:3px;accent-color:var(--blue)}
+.submit{border:0;cursor:pointer;background:var(--navy);color:#fff;font:inherit;font-weight:800;font-size:17px;padding:16px 28px;border-radius:14px;width:100%}
+.submit:disabled{opacity:.6;cursor:wait}
+.fmsg{display:none;margin-top:14px;padding:14px 16px;border-radius:12px;font-weight:700}
+.fmsg.ok{display:block;background:#e7f7ee;color:#14633a}
+.fmsg.err{display:block;background:#fdeaea;color:#a12b2b}
+@media (max-width:760px){.fgrid{grid-template-columns:1fr}.form-card{padding:20px}}
+
 @media (max-width:760px){
   .g2,.g3,.g4,.two{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
@@ -242,11 +266,41 @@ footer{padding:36px 0 52px;text-align:center;color:var(--muted);font-size:13px}
     <details><summary>일반 제품은 어디서 구매하나요?</summary><p>원더홀 쇼핑몰(wonderhole.kr)에서 확인하실 수 있습니다.</p></details>
   </section>
 
+  <section id="inquiry">
+    <h2><span class="bar"></span>온라인 문의</h2>
+    <p class="sub">아래 내용을 남겨 주시면 확인 후 연락드립니다. 로고·디자인 파일은 접수 후 이메일로 보내 주세요.</p>
+    <form class="form-card" id="inqForm" novalidate>
+      <input type="hidden" name="access_key" value="2d85f1d7-08d1-4deb-aebe-d03fb808cf09">
+      <input type="hidden" name="subject" value="[콘홀 커스텀 문의] 새 문의가 접수되었습니다">
+      <input type="hidden" name="from_name" value="콘홀 커스텀 안내 페이지">
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+      <div class="fgrid">
+        <div class="f"><label for="q-name">이름 / 단체명 <span class="req">*</span></label><input type="text" id="q-name" name="이름_단체명" required></div>
+        <div class="f"><label for="q-tel">연락처 <span class="req">*</span></label><input type="tel" id="q-tel" name="연락처" placeholder="010-0000-0000" required></div>
+        <div class="f full"><label for="q-email">이메일 <span class="req">*</span></label><input type="email" id="q-email" name="email" placeholder="파일을 받을 이메일 주소" required></div>
+        <div class="f full"><span class="lab">제작할 제품 <span class="req">*</span></span>
+          <div class="opts"><label><input type="checkbox" name="제품" value="보드"> 커스텀 보드</label><label><input type="checkbox" name="제품" value="주머니"> 커스텀 주머니</label></div></div>
+        <div class="f"><label for="q-board">보드 종류와 수량</label><input type="text" id="q-board" name="보드_종류_수량" placeholder="예: 스탠다드 2세트"></div>
+        <div class="f"><label for="q-bag">주머니 사이즈와 수량</label><input type="text" id="q-bag" name="주머니_사이즈_수량" placeholder="예: 마스터 L 8개 (최소 4개)"></div>
+        <div class="f full"><span class="lab">디자인 방법 <span class="req">*</span></span>
+          <div class="opts"><label><input type="radio" name="디자인_방법" value="파일 제공"> 파일을 직접 드릴게요</label><label><input type="radio" name="디자인_방법" value="디자인 요청"> 디자인을 만들어 주세요</label></div></div>
+        <div class="f"><label for="q-kinds">디자인 종류 수</label><input type="text" id="q-kinds" name="디자인_종류_수" placeholder="예: 4종 (주머니마다 다르게)"></div>
+        <div class="f"><label for="q-date">희망 납품일 / 행사일</label><input type="date" id="q-date" name="희망_납품일"></div>
+        <div class="f full"><label for="q-msg">문의 내용</label><textarea id="q-msg" name="문의_내용" placeholder="용도, 넣고 싶은 로고·문구 등을 자유롭게 적어 주세요."></textarea></div>
+        <div class="f full"><div class="consent">문의 응대를 위해 이름, 연락처, 이메일을 수집하며 응대가 끝난 뒤 지체 없이 파기합니다.
+          <label><input type="checkbox" id="q-agree" required> 개인정보 수집·이용에 동의합니다. <span class="req">*</span></label></div></div>
+      </div>
+      <div style="margin-top:18px"><button type="submit" class="submit" id="q-btn">문의 보내기</button></div>
+      <div class="fmsg" id="q-msgbox" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
   <div class="cta">
     <h2>커스텀 제작 문의</h2>
     <p>제품, 수량, 행사 날짜를 알려주시면 알맞은 구성과 견적을 안내해 드립니다.</p>
     <div class="btns">
-      <a class="btn primary" href="tel:07048484441">070-4848-4441</a>
+      <a class="btn primary" href="#inquiry">온라인 문의하기</a>
+      <a class="btn ghost" href="tel:07048484441">070-4848-4441</a>
       <a class="btn ghost" href="https://wonderhole.kr" target="_blank" rel="noopener">wonderhole.kr</a>
     </div>
     <div class="tell">한국콘홀협회 · 원더홀</div>
@@ -256,5 +310,31 @@ footer{padding:36px 0 52px;text-align:center;color:var(--muted);font-size:13px}
 <footer>
   <div class="wrap">가격은 2026년 9월 기준 판매가이며, 변동될 수 있습니다. 정확한 금액은 문의 시 확인해 주세요.</div>
 </footer>
+<script>
+(function(){
+  var f=document.getElementById('inqForm'),btn=document.getElementById('q-btn'),box=document.getElementById('q-msgbox');
+  function show(t,c){box.className='fmsg '+c;box.textContent=t}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d=new FormData(f);
+    if(d.get('botcheck')){return}
+    if(!d.get('이름_단체명')||!d.get('연락처')||!d.get('email')){show('이름, 연락처, 이메일을 입력해 주세요.','err');return}
+    if(!d.getAll('제품').length){show('제작할 제품을 하나 이상 선택해 주세요.','err');return}
+    if(!d.get('디자인_방법')){show('디자인 방법을 선택해 주세요.','err');return}
+    if(!document.getElementById('q-agree').checked){show('개인정보 수집·이용에 동의해 주세요.','err');return}
+    var o={};
+    d.forEach(function(v,k){if(o[k]!==undefined){o[k]+=', '+v}else{o[k]=v}});
+    btn.disabled=true;btn.textContent='보내는 중…';
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(o)})
+      .then(function(r){return r.json()})
+      .then(function(j){
+        if(j.success){show('문의가 접수되었습니다. 확인 후 연락드리겠습니다.','ok');f.reset()}
+        else{show('전송에 실패했습니다. 잠시 후 다시 시도하거나 070-4848-4441로 문의해 주세요.','err')}
+      })
+      .catch(function(){show('전송에 실패했습니다. 잠시 후 다시 시도하거나 070-4848-4441로 문의해 주세요.','err')})
+      .then(function(){btn.disabled=false;btn.textContent='문의 보내기'});
+  });
+})();
+</script>
 </body>
 </html>
