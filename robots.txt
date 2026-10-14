@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://uluvertv-netizen.github.io/custom-guide/sitemap.xml
